@@ -1,5 +1,8 @@
 var restify = require('restify');
 var builder = require('botbuilder');
+var Request = require('tedious').Request;
+var Types = require('tedious').TYPES;
+var email = require('./sendemail');
 
 //=========================================================
 // Bot Setup
@@ -85,6 +88,7 @@ dialog.matches('StartActivity',[
         }
         if (duration.location && duration.technology && duration.ActivityDuration){
             duration.address = session.message.address;
+            console.log("Initiate database connection");
             var Connection = require('tedious').Connection;  
             var config = {
                 userName: 'root12345@candidatesearch.database.windows.net',
