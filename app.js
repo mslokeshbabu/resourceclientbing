@@ -16,8 +16,8 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
   
 // Create chat bot
 var connector = new builder.ChatConnector({
-    appId: process.env.MICROSOFT_APP_ID,
-    appPassword: process.env.MICROSOFT_APP_PASSWORD
+    appId: 'ab5abf78-2c33-464a-9fd6-8b169b7dc21f',
+    appPassword: 'KXLSkw4tWAfVYkSbPh9bqP'
 });
 var bot = new builder.UniversalBot(connector);
 server.post('/api/messages', connector.listen());
@@ -26,14 +26,21 @@ server.post('/api/messages', connector.listen());
 var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/bd2a8c49-4154-4771-9127-2ac0f1e41e5e?subscription-key=8a6d7ac6787c4537aab3095d94985a35&timezoneOffset=0.0&verbose=true&q=';
 var recognizer = new builder.LuisRecognizer(model);
 var dialog = new builder.IntentDialog({ recognizers: [recognizer]});
+
 bot.dialog('/', [
     function (session) {
-        session.send("Welcome to Resource Bing Technical Bot");
         var msg = new builder.Message(session)
-            .attachments([{
-                contentType: "image/jpeg",
-                contentUrl: "http://www.theoldrobots.com/images26/gakk6.JPG"
-            }]);
+            .textFormat(builder.TextFormat.xml)
+            .attachments([
+                new builder.HeroCard(session)
+                    .title("Welcome to Resource technical Bot")
+                    .subtitle("Smart resource management")
+                    .text("The smart resource management is a intelligent bot for PMs/SAs/TAs or TFS/Scheduler for resource management")
+                    .images([
+                        builder.CardImage.create(session, "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Seattlenighttimequeenanne.jpg/320px-Seattlenighttimequeenanne.jpg")
+                    ])
+                    .tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
+            ]);
         session.endDialog(msg);
     }
 ]);
