@@ -37,7 +37,7 @@ bot.dialog('/', [
                     .subtitle("Smart resource management")
                     .text("The smart resource management is a intelligent bot for PMs/SAs/TAs or TFS/Scheduler for resource management")
                     .images([
-                        builder.CardImage.create(session, "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Seattlenighttimequeenanne.jpg/320px-Seattlenighttimequeenanne.jpg")
+                        builder.CardImage.create(session, "http://www.theoldrobots.com/images26/gakk6.JPG")
                     ])
                     .tap(builder.CardAction.openUrl(session, "https://en.wikipedia.org/wiki/Space_Needle"))
             ]);
