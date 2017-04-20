@@ -26,7 +26,17 @@ server.post('/api/messages', connector.listen());
 var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/bd2a8c49-4154-4771-9127-2ac0f1e41e5e?subscription-key=8a6d7ac6787c4537aab3095d94985a35&timezoneOffset=0.0&verbose=true&q=';
 var recognizer = new builder.LuisRecognizer(model);
 var dialog = new builder.IntentDialog({ recognizers: [recognizer]});
-bot.dialog('/', dialog);
+bot.dialog('/', [
+    function (session) {
+        session.send("Welcome to Resource Bing Technical Bot");
+        var msg = new builder.Message(session)
+            .attachments([{
+                contentType: "image/jpeg",
+                contentUrl: "http://www.theoldrobots.com/images26/gakk6.JPG"
+            }]);
+        session.endDialog(msg);
+    }
+]);
 
 // // Add intent handlers
 dialog.matches('StartActivity',[
@@ -91,12 +101,12 @@ dialog.matches('StartActivity',[
             console.log("Initiate database connection");
             var Connection = require('tedious').Connection;  
             var config = {
-                userName: 'root12345@candidatesearch.database.windows.net',
-                password: 'admin1234$$',
-                server: 'candidatesearch.database.windows.net',
+                userName: 'ravi@mydb-ai-hack.database.windows.net',
+                password: 'Nkdc@2018',
+                server: 'mydb-ai-hack.database.windows.net',
                 options: {
                     encrypt: true, 
-                    database: 'employer', 
+                    database: 'MyDB-AI-Hack', 
                     rowCollectionOnRequestCompletion: true
                 }
             };
